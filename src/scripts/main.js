@@ -64,7 +64,7 @@ function main() {
         fetch(`${baseUrl}/delete/${bookId}`, {
             method: "DELETE",
             headers: {
-                "x-Auth-Token": "12345"
+                "X-Auth-Token": "12345"
             }
         })
         .then(response => {
