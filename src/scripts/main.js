@@ -61,28 +61,22 @@ function main() {
     };
 
     const removeBook = (bookId) => {
-        // Membuat instance dari XMLHttpRequest.
-        const xhr = new XMLHttpRequest();
-
-        // Menetapkan callback jika response sukses dan error.
-        xhr.onload = function(){
-            const responseJson = JSON.parse(this.responseText);
+        fetch(`${baseUrl}/delete/${bookId}`, {
+            method: "DELETE",
+            headers: {
+                "x-Auth-Token": "12345"
+            }
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(responseJson => {
             showResponseMessage(responseJson.message);
             getBook();
-        }
-
-        xhr.onerror = function(){
-            showResponseMessage();
-        }
-
-        // Membuat DELETE request dan mentapkan target URL.
-        xhr.open("DELETE", `${baseUrl}/delete/${bookId}`);
-
-        // Menetapkan properti Content-Type dan X-Auth-Token pada Header request.
-        xhr.setRequestHeader("X-Auth-Token", "12345");
-
-        // Mengirimkan request.
-        xhr.send();
+        })
+        .catch(error => {
+            showResponseMessage(error);
+        })
     };
 
 
